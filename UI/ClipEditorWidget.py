@@ -1,10 +1,13 @@
 from PyQt6 import QtWidgets
-from PyQt6.QtWidgets import QWidget, QMessageBox, QProgressDialog, QFileDialog
+from PyQt6.QtWidgets import QWidget, QMessageBox, QProgressDialog, QFileDialog, QApplication
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtCore import QUrl, QTimer, Qt, QTime
 from pydub import AudioSegment
 from Designer.ClipEditorWidget import Ui_clipEditorWidget
+from Core.AudioPlayer import AudioPlayer
+from Core.Clip import Clip
 import math, os, shutil
+
 
 class ClipEditorWidget(QWidget, Ui_clipEditorWidget):
     def __init__(self, songList: list[str]):
@@ -28,9 +31,8 @@ class ClipEditorWidget(QWidget, Ui_clipEditorWidget):
 
         self.startTime = QTime(0, 0, 0)
         self.endTime   = QTime(0, 0, 0)
-        self.volume  = 0.0
-        self.fadein  = 0.0
-        self.fadeout = 0.0
+
+        self.clip = Clip()
 
         self.loadingDialog = None
 
@@ -94,7 +96,7 @@ class ClipEditorWidget(QWidget, Ui_clipEditorWidget):
         self.loadingDialog.setWindowModality(Qt.WindowModality.ApplicationModal)
         self.loadingDialog.show()
 
-        self.mediaPlayer.setSource(QUrl.fromLocalFile(os.path.join(os.path.abspath(self.folderPath),  f"trailor_{self.songList[self.index]}")))
+        self.mediaPlayer.setSource(QUrl.fromLocalFile(self.clip.getTempFile(self.songList[self.index])))
         self.songNameLabel.setText(f"{self.index+1}. {self.songList[self.index].split('/')[-1]}")
 
 
@@ -112,16 +114,17 @@ class ClipEditorWidget(QWidget, Ui_clipEditorWidget):
             secs = self.seconds % 60
 
             self.endTime = QTime(0, mins, secs)
-            self.endTimeEdit.setTime(self.endTime)
             self.endTimeEdit.setMaximumTime(self.endTime)
+            self.endTimeEdit.setTime(self.endTime)
 
             self.startTime = QTime(0, 0, 0)
-            self.startTimeEdit.setTime(self.startTime)
             self.startTimeEdit.setMaximumTime(self.endTime)
+            self.startTimeEdit.setTime(self.startTime)
 
 
-            self.playTimeLabel.setText("%d:%02d" % (mins, secs))
+            self.playTimeLabel.setText("%d:%02d" % (0, 00))
             self.endTimeLabel.setText("%d:%02d" % (mins, secs))
+
 
             if hasattr(self, "loadingDialog"):
                 self.loadingDialog.close()
@@ -140,6 +143,7 @@ class ClipEditorWidget(QWidget, Ui_clipEditorWidget):
         self.endTimeLabel.setText("0:00")
         self.playButton.setText("播放")
 
+        self.clip.addTempFile(self.songList[self.index])
         self.loadSong()
 
         self.Timer.start()
@@ -153,8 +157,6 @@ class ClipEditorWidget(QWidget, Ui_clipEditorWidget):
             self.nextButton.clicked.disconnect()
             self.nextButton.clicked.connect(self.nextButtonClicked)
 
-        self.playButton.setText("暂停")
-
 
     def setSliderValue(self):
 
@@ -165,23 +167,38 @@ class ClipEditorWidget(QWidget, Ui_clipEditorWidget):
         curtSecs = curtSecs % 60
 
         self.playTimeLabel.setText("%d:%02d" % (curtMins, curtSecs))
+        self.playTimeLabel.repaint()
 
 
     def sliderProgressMoved(self):
         self.Timer.stop()
+        self.mediaPlayer.pause()
+
+        crtSecs = self.progressSlider.value()
+        crtMins = crtSecs // 60
+        crtSecs = crtSecs % 60
+
+        self.playButton.setText("播放")
+        self.playStatus = False
+
+        self.playTimeLabel.setText("%d:%02d" % (crtMins, crtSecs))
+        self.playTimeLabel.repaint()
+
+
+    def sliderProgressReleased(self):
 
         pos = self.progressSlider.value() * 1000
-
         self.mediaPlayer.setPosition(pos)
+        self.mediaPlayer.play()
 
-        crtSecs = self.mediaPlayer.position() // 1000
+        crtSecs = self.progressSlider.value()
         crtMins = crtSecs // 60
         crtSecs = crtSecs % 60
 
         self.playTimeLabel.setText("%d:%02d" % (crtMins, crtSecs))
+        self.playButton.setText("暂停")
+        self.playStatus = True
 
-
-    def sliderProgressReleased(self):
         self.Timer.start()
 
 
@@ -212,25 +229,17 @@ class ClipEditorWidget(QWidget, Ui_clipEditorWidget):
     def trailorButtonClicked(self):
         self.startTime = self.startTimeEdit.time()
         self.endTime = self.endTimeEdit.time()
-        self.volume = self.volumeSpinBox.value()
-        self.fadein = self.fadeinSpinBox.value()
-        self.fadeout = self.fadeoutSpinBox.value()
+        volume = self.volumeSpinBox.value()
+        fadein = self.fadeinSpinBox.value()
+        fadeout = self.fadeoutSpinBox.value()
         startTime = self.startTime.minute()*60 + self.startTime.second()
         endTime   = self.endTime.minute()*60 + self.endTime.second()
 
-        if endTime <= startTime:
+        clipStatus = self.clip.applyEffects(self.songList[self.index], volume, fadein, fadeout, startTime, endTime)
+
+        if clipStatus == 0:
             QMessageBox.warning(self, "提示", "结束时间必须大于开始时间")
             return
-
-        audio = AudioSegment.from_file(os.path.join(os.path.abspath(self.folderPath), self.songList[self.index]))
-        audio = audio[startTime*1000 : endTime*1000]
-        audio = audio.apply_gain(self.volume)
-        if self.fadein != 0.0:
-            audio = audio.fade_in(int(self.fadein*1000))
-        if self.fadeout != 0.0:
-            audio = audio.fade_out(int(self.fadeout*1000))
-        trailor = os.path.join(os.path.abspath(self.folderPath), f"trailor_{self.songList[self.index]}")
-        audio.export(trailor, format="mp3")
 
         QMessageBox.information(self, "提示", "预览音频已生成")
 
@@ -245,12 +254,6 @@ class ClipEditorWidget(QWidget, Ui_clipEditorWidget):
 
 
     def exportButtonClicked(self):
-        combined = AudioSegment.empty()
-
-        for file in self.songList:
-            filePath = os.path.join(os.path.abspath(self.folderPath), f"trailor_{file}")
-            seg = AudioSegment.from_file(filePath, format="mp3")
-            combined += seg
 
         filePath, _ = QFileDialog.getSaveFileName(
             self,
@@ -259,11 +262,18 @@ class ClipEditorWidget(QWidget, Ui_clipEditorWidget):
             "音频文件 (*.mp3)"
         )
 
-        if filePath:  # 用户点了保存
-            try:
-                # 导出音频
-                combined.export(filePath, format="mp3")
-                QMessageBox.information(self, "成功", f"已导出到 {filePath}")
-            except Exception as e:
-                QMessageBox.critical(self, "错误", f"导出失败: {e}")
+        if filePath:
+            self.clip.combineClips(filePath)
+            self.clip.cleanTempFiles()
 
+            reply = QMessageBox.question(self, "提示", "成功导出^^\n返回主界面按yes, 退出按no", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+
+            if reply == QMessageBox.StandardButton.Yes:
+                for w in QApplication.topLevelWidgets():
+                    if w.__class__.__name__ == "MainWindow":
+                        self.close()
+                        w.show()
+                        break
+
+            else:
+                QApplication.quit()

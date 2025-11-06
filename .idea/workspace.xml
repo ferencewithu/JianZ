@@ -4,32 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48c1c6e0-f1eb-4442-8af2-9da33e8de813" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/JianZ.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/AudioItem.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/AudioProcessor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/ClipConfig.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Exporter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/PlayerService.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Project.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/testData/do somethin.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/testData/toxic9.26.MP3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/testData/yes and.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UI/ClipEditorWidget.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UI/MainWindow.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UI/SongListWidget.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.ipynb" afterDir="false" />
+    <list default="true" id="48c1c6e0-f1eb-4442-8af2-9da33e8de813" name="更改" comment="25_11_3&#10;仍然屎山，需要重构">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/AudioItem.py" beforeDir="false" afterPath="$PROJECT_DIR$/Core/AudioPlayer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/AudioProcessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Clip.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/ClipConfig.py" beforeDir="false" afterPath="$PROJECT_DIR$/Core/TempAudioManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Exporter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/PlayerService.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Project.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Temp/do somethin.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Temp/toxic9.26.MP3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Temp/trailor_do somethin.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Temp/trailor_toxic9.26.MP3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Temp/trailor_yes and.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Temp/yes and.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Designer/ClipEditorWidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/Designer/ClipEditorWidget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Designer/ClipEditorWidget.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Designer/ClipEditorWidget.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/ClipEditorWidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/ClipEditorWidget.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +37,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ferencewithu&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:ferencewithu/JianZ.git&quot;,
+    &quot;accountId&quot;: &quot;1e45ac92-0f8b-4eb0-9323-4112a12b391d&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -92,6 +96,7 @@
       <recent name="D:\myProgramFiles\coding\projects\pycharmProjects\logiZ\Tests\testData" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\myProgramFiles\coding\projects\pycharmProjects\logiZ\Core" />
       <recent name="D:\myProgramFiles\coding\projects\pycharmProjects\logiZ\Data" />
       <recent name="D:\myProgramFiles\coding\projects\pycharmProjects\logiZ\UI" />
     </key>
@@ -276,11 +281,27 @@
       <workItem from="1762141113726" duration="2913000" />
       <workItem from="1762160090565" duration="624000" />
       <workItem from="1762182923253" duration="226000" />
+      <workItem from="1762224325051" duration="23000" />
+      <workItem from="1762304538619" duration="1220000" />
+      <workItem from="1762353343176" duration="9940000" />
     </task>
+    <task id="LOCAL-00001" summary="25_11_3&#10;仍然屎山，需要重构">
+      <option name="closed" value="true" />
+      <created>1762184557362</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762184557362</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="25_11_3&#10;仍然屎山，需要重构" />
+    <option name="LAST_COMMIT_MESSAGE" value="25_11_3&#10;仍然屎山，需要重构" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -296,14 +317,9 @@
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../../../envs/anaconda/envs/logicZ/Lib/site-packages/pydub/audio_segment.py</url>
-          <line>1351</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/UI/ClipEditorWidget.py</url>
-          <line>224</line>
-          <option name="timeStamp" value="30" />
+          <line>117</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -319,7 +335,7 @@
     <SUITE FILE_PATH="coverage/logiZ$app.coverage" NAME="app 覆盖结果" MODIFIED="1760664671766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/logiZ$lexer.coverage" NAME="lexer 覆盖结果" MODIFIED="1761268073181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
     <SUITE FILE_PATH="coverage/JianZ$SongListWindow.coverage" NAME="SongListWindow 覆盖结果" MODIFIED="1762082292230" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/UI" />
-    <SUITE FILE_PATH="coverage/JianZ$Main.coverage" NAME="Main 覆盖结果" MODIFIED="1762141382486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/JianZ$Main.coverage" NAME="Main 覆盖结果" MODIFIED="1762363183843" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/JianZ$ClipEditorWidget__2_.coverage" NAME="ClipEditorWidget (2) 覆盖结果" MODIFIED="1762082463473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Designer" />
     <SUITE FILE_PATH="coverage/JianZ$ClipEditorWindow__1_.coverage" NAME="ClipEditorWindow (1) 覆盖结果" MODIFIED="1762080401978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Designer" />
     <SUITE FILE_PATH="coverage/JianZ$MainWindow.coverage" NAME="MainWindow 覆盖结果" MODIFIED="1762073666647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Designer" />

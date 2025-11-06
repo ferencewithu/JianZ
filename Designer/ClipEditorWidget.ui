@@ -446,7 +446,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>暂停</string>
+        <string>播放</string>
        </property>
       </widget>
      </item>

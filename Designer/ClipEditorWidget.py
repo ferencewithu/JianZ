@@ -311,6 +311,6 @@ class Ui_clipEditorWidget(object):
         self.label_3.setText(_translate("clipEditorWidget", "音量(dB)"))
         self.prevButton.setText(_translate("clipEditorWidget", "上一首"))
         self.resetButton.setText(_translate("clipEditorWidget", "重置"))
-        self.playButton.setText(_translate("clipEditorWidget", "暂停"))
+        self.playButton.setText(_translate("clipEditorWidget", "播放"))
         self.trailorButton.setText(_translate("clipEditorWidget", "生成预览"))
         self.nextButton.setText(_translate("clipEditorWidget", "下一首"))
